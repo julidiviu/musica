@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block section %}
+    <h2>Álbumes</h2>
+    <hr>
+{% endblock section %}
+
+{% block maincontent %}
+    <div class="row well">
+        {% for album in object_list %}
+            <div class="col-md-3 well">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ album.titulo }}</h3>
+                    </div>
+                    <div class="panel-body" align="center">
+                        {% if album.portada %}
+                            <img src="{{ album.portada.url }}" style="width:170px;height:200px;"/>
+                        {% else %}
+                            <img src="{% static 'default_album.jpg' %}" style="width:170px;height:200px;" alt="No image available"/>
+                        {% endif %}
+                    </div>
+                    <div class="panel-footer">
+                        <p><strong>Banda:</strong> {{ album.banda.nombre }}</p>
+                        <p><strong>Género:</strong> {{ album.genero }}</p>
+                        <p><strong>Lanzamiento:</strong> {{ album.lanzamiento|date:"Y" }}</p>
+                        <p><strong>Duración Total:</strong> {{ album.duracion_total }}</p>
+                        <a href="{% url 'album-detail' album.id %}">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock maincontent %}

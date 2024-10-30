@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block section %}
+    <h2>Canciones</h2>
+    <hr>
+{% endblock section %}
+
+{% block maincontent %}
+    <div class="row well">
+        {% for cancion in object_list %}
+            <div class="col-md-3 well">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ cancion.titulo }}</h3>
+                    </div>
+                    <div class="panel-body" align="center">
+                        {% if cancion.foto %}
+                            <img src="{{ cancion.foto.url }}" style="width:170px;height:200px;"/>
+                        {% else %}
+                            <img src="{% static 'default_cancion.jpg' %}" style="width:170px;height:200px;" alt="No image available"/>
+                        {% endif %}
+                    </div>
+                    <div class="panel-footer">
+                        <p><strong>Álbum:</strong> {{ cancion.album.titulo }}</p>
+                        <p><strong>Banda:</strong> {{ cancion.banda.nombre }}</p>
+                        <p><strong>Duración:</strong> {{ cancion.duracion }}</p>
+                        <p><strong>Lanzamiento:</strong> {{ cancion.fecha_lanzamiento|date:"Y" }}</p>
+                        <a href="{% url 'cancion-detail' cancion.id %}">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock maincontent %}

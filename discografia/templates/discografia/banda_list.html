@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block section %}
+    <h2>Bandas</h2>
+    <hr>
+{% endblock section %}
+
+{% block maincontent %}
+    <div class="row well">
+        {% for banda in object_list %}
+            <div class="col-md-3 well">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ banda.nombre }}</h3>
+                    </div>
+                    <div class="panel-body" align="center">
+                        <a href="{% url "banda-detail" banda.id %}">
+                            <img src="{% static banda.foto.url %}" style="width:170px;height:200px;"/>
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <p><strong>Género:</strong> {{ banda.genero }}</p>
+                        <p><strong>Origen:</strong> {{ banda.origen }}</p>
+                        <p><strong>Formación:</strong> {{ banda.fecha_formacion|date:"Y" }}</p>
+                        <a href="{% url 'banda-detail' banda.id %}">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock maincontent %}

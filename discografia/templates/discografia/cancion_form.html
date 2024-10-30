@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block maincontent %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">
+        {% if form.instance.pk %}Editar{% else %}Nueva{% endif %} Canción
+      </h3>
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class="row">
+          <!-- Título -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.titulo.id_for_label }}" class="form-label">Título</label>
+              {{ form.titulo.errors }}
+              <input
+                type="text"
+                name="titulo"
+                class="form-control"
+                id="{{ form.titulo.id_for_label }}"
+                required
+                value="{{ form.instance.titulo|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Duración -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.duracion.id_for_label }}" class="form-label">Duración</label>
+              {{ form.duracion.errors }}
+              <input
+                type="time"
+                name="duracion"
+                class="form-control"
+                id="{{ form.duracion.id_for_label }}"
+                required
+                value="{{ form.instance.duracion|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Álbum -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.album.id_for_label }}" class="form-label">Álbum</label>
+              {{ form.album.errors }}
+              {{ form.album }}
+            </div>
+          </div>
+
+          <!-- Banda -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.banda.id_for_label }}" class="form-label">Banda</label>
+              {{ form.banda.errors }}
+              {{ form.banda }}
+            </div>
+          </div>
+
+          <!-- Foto -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.foto.id_for_label }}" class="form-label">Foto</label>
+              {{ form.foto.errors }}
+              <div class="input-group">
+                <input
+                  type="file"
+                  class="form-control form-control-file d-none"
+                  name="foto"
+                  id="{{ form.foto.id_for_label }}"
+                  accept="image/*"
+                />
+                <label class="form-control text-truncate" for="{{ form.foto.id_for_label }}">
+                  {% if form.instance.foto %}
+                    Foto actual: {{ form.instance.foto.name|slice:"8:" }}
+                  {% else %}
+                    Seleccionar imagen...
+                  {% endif %}
+                </label>
+                <label class="input-group-text" for="{{ form.foto.id_for_label }}">
+                  <i class="fas fa-upload"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fecha de Lanzamiento -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.fecha_lanzamiento.id_for_label }}" class="form-label">Fecha de Lanzamiento</label>
+              {{ form.fecha_lanzamiento.errors }}
+              <input
+                type="date"
+                name="fecha_lanzamiento"
+                class="form-control"
+                id="{{ form.fecha_lanzamiento.id_for_label }}"
+                value="{{ form.instance.fecha_lanzamiento|default:'' }}"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de guardar y cancelar -->
+        <div class="mt-4 text-center">
+          <button type="submit" class="btn btn-primary btn-lg">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+          <a href="{% url 'cancion-list' %}" class="btn btn-secondary btn-lg">
+            <i class="fas fa-times"></i> Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock maincontent %}

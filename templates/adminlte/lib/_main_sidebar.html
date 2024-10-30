@@ -1,0 +1,113 @@
+{% load static %}
+<style>
+    /* Estilos modernos y vibrantes para la barra de menú */
+    .main-sidebar {
+        background-color: #121212; /* Fondo oscuro para un aspecto elegante */
+    }
+    .user-panel {
+        background-color: #1f1f1f; /* Fondo un poco más claro para la sección del usuario */
+        padding: 15px;
+        border-radius: 8px;
+    }
+    .user-panel .info a {
+        color: #8be9fd; /* Color azul claro para el nombre de usuario */
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+    .user-panel .image i {
+        color: #ff79c6; /* Ícono de usuario en un tono púrpura vibrante */
+    }
+    .sidebar .nav-link {
+        color: #bfbfbf; /* Color de texto en gris claro */
+        font-size: 0.95em;
+    }
+    .sidebar .nav-link:hover {
+        background-color: #44475a; /* Efecto hover en tono gris oscuro */
+        color: #ffffff; /* Texto blanco en hover */
+    }
+    .sidebar .nav-icon {
+        color: #bd93f9; /* Color de iconos en un tono púrpura suave */
+    }
+    .nav-treeview > .nav-item > .nav-link {
+        padding-left: 30px; /* Aumentar sangría para submenús */
+    }
+</style>
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <div class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel d-flex align-items-center">
+            <div class="image">
+                <i class="fas fa-user-circle fa-3x"></i>
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">Andrea Eraso</a>
+            </div>
+        </div>
+
+        <!-- Navigation menu -->
+        <nav class="mt-3">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Banda Section -->
+                <li class="nav-item has-tree-view">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-guitar"></i>
+                        <p>Banda<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'banda-list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i> Listar Bandas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'banda-create' %}" class="nav-link">
+                                <i class="nav-icon fas fa-plus"></i> Crear Banda
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Album Section -->
+                <li class="nav-item has-tree-view">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-compact-disc"></i>
+                        <p>Álbum<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'album-list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i> Listar Álbumes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'album-create' %}" class="nav-link">
+                                <i class="nav-icon fas fa-plus"></i> Crear Álbum
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Cancion Section -->
+                <li class="nav-item has-tree-view">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-music"></i>
+                        <p>Canción<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'cancion-list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i> Listar Canciones
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'cancion-create' %}" class="nav-link">
+                                <i class="nav-icon fas fa-plus"></i> Crear Canción
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

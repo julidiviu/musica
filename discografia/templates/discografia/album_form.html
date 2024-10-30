@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block maincontent %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">
+        {% if form.instance.pk %}Editar{% else %}Nuevo{% endif %} Álbum
+      </h3>
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class="row">
+          <!-- Título -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.titulo.id_for_label }}" class="form-label">Título</label>
+              {{ form.titulo.errors }}
+              <input
+                type="text"
+                name="titulo"
+                class="form-control"
+                id="{{ form.titulo.id_for_label }}"
+                required
+                value="{{ form.instance.titulo|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Lanzamiento -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.lanzamiento.id_for_label }}" class="form-label">Lanzamiento</label>
+              {{ form.lanzamiento.errors }}
+              <input
+                type="date"
+                name="lanzamiento"
+                class="form-control"
+                id="{{ form.lanzamiento.id_for_label }}"
+                required
+                value="{{ form.instance.lanzamiento|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Género -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.genero.id_for_label }}" class="form-label">Género</label>
+              {{ form.genero.errors }}
+              <input
+                type="text"
+                name="genero"
+                class="form-control"
+                id="{{ form.genero.id_for_label }}"
+                value="{{ form.instance.genero|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Banda -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.banda.id_for_label }}" class="form-label">Banda</label>
+              {{ form.banda.errors }}
+              {{ form.banda }}
+            </div>
+          </div>
+
+          <!-- Descripción -->
+          <div class="col-12 mb-3">
+            <div class="form-group">
+              <label for="{{ form.descripcion.id_for_label }}" class="form-label">Descripción</label>
+              {{ form.descripcion.errors }}
+              <textarea
+                name="descripcion"
+                class="form-control"
+                id="{{ form.descripcion.id_for_label }}"
+              >{{ form.instance.descripcion|default:'' }}</textarea>
+            </div>
+          </div>
+
+          <!-- Duración Total -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.duracion_total.id_for_label }}" class="form-label">Duración Total</label>
+              {{ form.duracion_total.errors }}
+              <input
+                type="time"
+                name="duracion_total"
+                class="form-control"
+                id="{{ form.duracion_total.id_for_label }}"
+                value="{{ form.instance.duracion_total|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Portada -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.portada.id_for_label }}" class="form-label">Portada</label>
+              {{ form.portada.errors }}
+              <div class="input-group">
+                <input
+                  type="file"
+                  class="form-control form-control-file d-none"
+                  name="portada"
+                  id="{{ form.portada.id_for_label }}"
+                  accept="image/*"
+                />
+                <label class="form-control text-truncate" for="{{ form.portada.id_for_label }}">
+                  {% if form.instance.portada %}
+                    Portada actual: {{ form.instance.portada.name|slice:"8:" }}
+                  {% else %}
+                    Seleccionar imagen...
+                  {% endif %}
+                </label>
+                <label class="input-group-text" for="{{ form.portada.id_for_label }}">
+                  <i class="fas fa-upload"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de guardar y cancelar -->
+        <div class="mt-4 text-center">
+          <button type="submit" class="btn btn-primary btn-lg">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+          <a href="{% url 'album-list' %}" class="btn btn-secondary btn-lg">
+            <i class="fas fa-times"></i> Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock maincontent %}

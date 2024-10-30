@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block maincontent %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">
+        {% if form.instance.pk %}Editar{% else %}Nueva{% endif %} Banda
+      </h3>
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class="row">
+          <!-- Nombre -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
+              {{ form.nombre.errors }}
+              <input
+                type="text"
+                name="nombre"
+                class="form-control"
+                id="{{ form.nombre.id_for_label }}"
+                required
+                value="{{ form.instance.nombre|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Género -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.genero.id_for_label }}" class="form-label">Género</label>
+              {{ form.genero.errors }}
+              <input
+                type="text"
+                name="genero"
+                class="form-control"
+                id="{{ form.genero.id_for_label }}"
+                required
+                value="{{ form.instance.genero|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Origen -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.origen.id_for_label }}" class="form-label">Origen</label>
+              {{ form.origen.errors }}
+              <input
+                type="text"
+                name="origen"
+                class="form-control"
+                id="{{ form.origen.id_for_label }}"
+                value="{{ form.instance.origen|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Fecha de Formación -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.fecha_formacion.id_for_label }}" class="form-label">Fecha de Formación</label>
+              {{ form.fecha_formacion.errors }}
+              <input
+                type="date"
+                name="fecha_formacion"
+                class="form-control"
+                id="{{ form.fecha_formacion.id_for_label }}"
+                value="{{ form.instance.fecha_formacion|default:'' }}"
+              />
+            </div>
+          </div>
+
+          <!-- Foto -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="{{ form.foto.id_for_label }}" class="form-label">Foto</label>
+              {{ form.foto.errors }}
+              <div class="input-group">
+                <input
+                  type="file"
+                  class="form-control form-control-file d-none"
+                  name="foto"
+                  id="{{ form.foto.id_for_label }}"
+                  accept="image/*"
+                />
+                <label class="form-control text-truncate" for="{{ form.foto.id_for_label }}">
+                  {% if form.instance.foto %}
+                    Foto actual: {{ form.instance.foto.name|slice:"8:" }}
+                  {% else %}
+                    Seleccionar imagen...
+                  {% endif %}
+                </label>
+                <label class="input-group-text" for="{{ form.foto.id_for_label }}">
+                  <i class="fas fa-upload"></i>
+                </label>
+              </div>
+              {% if form.instance.foto %}
+                <small class="form-text text-info">Ya existe una imagen. Seleccione una nueva solo si desea cambiarla.</small>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Botones de guardar y cancelar -->
+        <div class="mt-4 text-center">
+          <button type="submit" class="btn btn-primary btn-lg">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+          <a href="{% url 'banda-list' %}" class="btn btn-secondary btn-lg">
+            <i class="fas fa-times"></i> Cancelar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock maincontent %}
